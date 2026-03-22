@@ -24,3 +24,6 @@ Thumbs.db
 # Optional tooling
 coverage/
 .nyc_output/
+
+# Vercel
+.vercel/

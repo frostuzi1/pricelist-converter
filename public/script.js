@@ -2,6 +2,19 @@
   /** Matches Excel template: DESCRIPTION | PRICE | DEAL | DISC % */
   const COLUMNS = ["DESCRIPTION", "PRICE", "DEAL", "DISC %"];
 
+  function apiUrl(path) {
+    const raw = (
+      document.querySelector('meta[name="api-base"]')?.getAttribute("content") || ""
+    ).trim();
+    const p = path.startsWith("/") ? path : `/${path}`;
+    if (!raw) return p;
+    const base = raw.replace(/\/$/, "");
+    if (base.startsWith("http://") || base.startsWith("https://")) {
+      return base + p;
+    }
+    return base + p;
+  }
+
   const LEGACY_KEY_MAP = {
     DESCRIPTION: ["DESCRIPTION", "Description"],
     PRICE: ["PRICE", "Price"],
@@ -198,7 +211,7 @@
 
     exportButton.disabled = true;
     try {
-      const res = await fetch("/export-xlsx", {
+      const res = await fetch(apiUrl("/export-xlsx"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -303,7 +316,7 @@
         const formData = new FormData();
         formData.append("image", files[i]);
 
-        const res = await fetch("/analyze-invoice", {
+        const res = await fetch(apiUrl("/analyze-invoice"), {
           method: "POST",
           body: formData,
         });

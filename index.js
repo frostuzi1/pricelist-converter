@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const path = require("path");
 const express = require("express");
 const multer = require("multer");
 const ExcelJS = require("exceljs");
@@ -144,8 +145,6 @@ app.post("/export-xlsx", async (req, res) => {
   }
 });
 
-app.use(express.static("public"));
-
 function getGeminiApiKey() {
   return (
     process.env.GEMINI_API_KEY ||
@@ -210,6 +209,12 @@ app.post("/analyze-invoice", upload.single("image"), async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Invoice scanner running at http://localhost:${PORT}`);
-});
+app.use(express.static(path.join(__dirname, "public")));
+
+module.exports = app;
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Invoice scanner running at http://localhost:${PORT}`);
+  });
+}
