@@ -120,10 +120,23 @@
     return null;
   }
 
+  /** Remove leading row indices like "1. ", "2) " (space required after . or ) so "1.5mg" stays). */
+  function stripLeadingRowIndexFromDescription(val) {
+    if (val === null || val === undefined) return val;
+    const s = String(val).trim();
+    if (!s) return val;
+    const stripped = s.replace(/^\d{1,4}[\.\)]\s+/u, "").trim();
+    return stripped || s;
+  }
+
   function normalizeRow(row) {
     const out = {};
     COLUMNS.forEach((key) => {
-      out[key] = pickField(row, key);
+      let v = pickField(row, key);
+      if (key === "DESCRIPTION") {
+        v = stripLeadingRowIndexFromDescription(v);
+      }
+      out[key] = v;
     });
     return out;
   }
