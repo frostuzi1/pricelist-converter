@@ -1,0 +1,20 @@
+{
+  "name": "invoice-scanner",
+  "version": "1.0.0",
+  "description": "Express utility to extract invoice table rows from images via Gemini",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.0",
+    "multer": "^1.4.5-lts.1"
+  }
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoice table extractor</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <h1>Invoice table extractor</h1>
+        <p class="subtitle">Upload one or more invoice images to extract product rows via OCR.</p>
+      </header>
+
+      <main class="main">
+        <div class="upload-card">
+          <input
+            type="file"
+            id="file-input"
+            accept="image/*"
+            class="file-input"
+            multiple
+            aria-label="Choose one or more invoice images"
+          />
+          <label for="file-input" class="upload-button">Upload invoice</label>
+          <p class="hint">PNG, JPG, or other common formats. You can select multiple images at once.</p>
+        </div>
+
+        <div id="status" class="status" hidden aria-live="polite"></div>
+
+        <div id="preview-container" class="preview-container" hidden>
+          <p class="preview-label">Uploaded image</p>
+          <div class="preview-frame">
+            <img
+              id="preview-image"
+              class="preview-image"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <div id="result-container" class="result-container"></div>
+
+        <div id="export-toolbar" class="export-toolbar" hidden>
+          <button type="button" id="export-button" class="export-button">
+            Download Excel (.xlsx)
+          </button>
+        </div>
+      </main>
+    </div>
+
+    <div
+      id="result-modal"
+      class="modal-overlay"
+      hidden
+      role="presentation"
+    >
+      <div
+        class="modal-overlay__panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        tabindex="-1"
+      >
+        <h2 id="modal-title" class="modal-overlay__title">Analysis complete</h2>
+        <p id="modal-message" class="modal-overlay__message"></p>
+        <button type="button" class="modal-overlay__button" id="modal-close">
+          OK
+        </button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
